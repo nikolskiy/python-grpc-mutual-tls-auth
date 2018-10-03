@@ -14,7 +14,7 @@ library complains if you don't include server certificate but the server doesn't
 default.
 
 [Secure gRPC with TLS/SSL](https://bbengfort.github.io/programmer/2017/03/03/secure-grpc.html) - useful article but it
-still did not answer all confusion about tls certs.
+still doesn't clarify confusion about tls certs.
 
 [Using SSL with gRPC in Python](https://www.sandtable.com/using-ssl-with-grpc-in-python/comment-page-1/) -
 doesn't talk about mutual tls authentication but has interesting sections on metadata and compression.
@@ -22,10 +22,10 @@ doesn't talk about mutual tls authentication but has interesting sections on met
 [TLS authentication in Python gRPC](https://github.com/joekottke/python-grpc-ssl/blob/master/resources/TLS-SSL%20authentication%20in%20Python%20gRPC.md) -
 Very useful explanation and the [repo itself](https://github.com/joekottke/python-grpc-ssl) is an awesome example
 of setting up gRPC [server](https://github.com/joekottke/python-grpc-ssl/blob/master/src/server.py) and [client](https://github.com/joekottke/python-grpc-ssl/blob/master/src/client.py).
-I wonder if it's possible to generate all those keys using only `openssl`.
+I wonder if it's possible to generate all those keys using only `openssl` though.
 
-[Useful openssl stackoverflow post](https://stackoverflow.com/questions/21297139/how-do-you-sign-a-certificate-signing-request-with-your-certification-authority) -
-it talks about setting up CA and signing certificates.
+[Useful openssl stackoverflow post](https://stackoverflow.com/questions/21297139/how-do-you-sign-a-certificate-signing-request-with-your-certification-authority)
+that talks about setting up CA and signing certificates.
 
 ## Scope
 The scope of the example should include: 
