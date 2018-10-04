@@ -13,6 +13,8 @@ how to establish mutual authentication. In this setup any client can theoretical
 library complains if you don't include server certificate but the server doesn't do any kind of authentication by
 default.
 
+[python gRPC reference](https://grpc.io/grpc/python/_modules/grpc.html)
+
 [Secure gRPC with TLS/SSL](https://bbengfort.github.io/programmer/2017/03/03/secure-grpc.html) - useful article but it
 still doesn't clarify confusion about tls certs.
 
