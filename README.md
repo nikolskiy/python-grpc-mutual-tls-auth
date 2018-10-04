@@ -29,6 +29,11 @@ I wonder if it's possible to generate all those keys using only `openssl` though
 [Useful openssl stackoverflow post](https://stackoverflow.com/questions/21297139/how-do-you-sign-a-certificate-signing-request-with-your-certification-authority)
 that talks about setting up CA and signing certificates.
 
+[Another stackoverflow](https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl)
+about managing certificates with `openssl`.
+
+[Common `openssl` commands](https://www.sslshopper.com/article-most-common-openssl-commands.html)
+
 ## Scope
 The scope of the example should include: 
 1) A very simple gRPC function
