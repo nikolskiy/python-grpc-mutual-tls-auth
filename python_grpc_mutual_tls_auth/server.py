@@ -1,14 +1,12 @@
-from concurrent import futures
 import time
-from pathlib import Path
-
 import grpc
-
+from concurrent import futures
 import mutual_tls_auth_pb2 as serializer
 import mutual_tls_auth_pb2_grpc as grpc_lib
+from utils import secrets, config
 
 
-class PoloniexServicer(grpc_lib.GatewayServicer):
+class GatewayServicer(grpc_lib.GatewayServicer):
     def loan_orders(self, request, context):
         point = serializer.LoanPoint(
             rate='0.010000',
@@ -23,29 +21,20 @@ class PoloniexServicer(grpc_lib.GatewayServicer):
         return orders
 
 
-def serve():
-    # TODO: move this section into some kind of config
-    private_key_path = str(Path.joinpath(Path.home(), Path('.ssh/certs/grpc_mutual_tls_auth/server/server.key')))
-    cert_path = str(Path.joinpath(Path.home(), Path('.ssh/certs/grpc_mutual_tls_auth/server/server.crt')))
-    client_path = str(Path.joinpath(Path.home(), Path('.ssh/certs/grpc_mutual_tls_auth/client/client.crt')))
-    with open(private_key_path, 'rb') as f:
-        private_key = f.read()
-    with open(cert_path, 'rb') as f:
-        certificate_chain = f.read()
-    with open(client_path, 'rb') as f:
-        client_pub_key = f.read()
-
-    # create server credentials
+def serve(cfg):
+    # Client will verify the server using server cert and the server
+    # will verify the client using client cert.
     server_credentials = grpc.ssl_server_credentials(
-        [(private_key, certificate_chain)],
-        root_certificates=client_pub_key,
+        [(secrets.load(cfg['credentials']['server']['key']),
+          secrets.load(cfg['credentials']['server']['cert']))],
+        root_certificates=secrets.load(cfg['credentials']['client']['cert']),
         require_client_auth=True
     )
 
     # this statement needs to be tested:
     # it's okay to have multiple threads because poloniex api call uses thread lock
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    grpc_lib.add_GatewayServicer_to_server(PoloniexServicer(), server)
+    grpc_lib.add_GatewayServicer_to_server(GatewayServicer(), server)
     server.add_secure_port('[::]:50051', server_credentials)
     server.start()
     try:
@@ -56,4 +45,4 @@ def serve():
 
 
 if __name__ == '__main__':
-    serve()
+    serve(config.invoke_config())
