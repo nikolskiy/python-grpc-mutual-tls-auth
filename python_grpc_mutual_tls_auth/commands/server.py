@@ -4,4 +4,5 @@ from server import serve
 
 @task
 def run(ctx):
-    serve()
+    serve(ctx.config)
+

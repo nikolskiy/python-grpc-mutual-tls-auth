@@ -2,7 +2,8 @@
   "credentials":{
     "server": {
       "key": "~/.ssh/certs/grpc_mutual_tls_auth/server/server.key",
-      "cert": "~/.ssh/certs/grpc_mutual_tls_auth/server/server.crt"
+      "cert": "~/.ssh/certs/grpc_mutual_tls_auth/server/server.crt",
+      "host": "localhost"
     },
     "client": {
       "key": "~/.ssh/certs/grpc_mutual_tls_auth/client/client.key",
